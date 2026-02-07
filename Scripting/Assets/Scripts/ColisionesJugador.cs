@@ -32,6 +32,7 @@ public class ColisionesJugador : MonoBehaviour
             {
                 audioSource.PlayOneShot(sonidoBloque);
             }
+            Destroy(objetoTocado.gameObject);
         }
     }
 

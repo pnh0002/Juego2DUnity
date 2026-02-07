@@ -4,44 +4,58 @@ using UnityEngine;
 
 public class MovimientoJugador : MonoBehaviour
 {
-
-    // Cuando es "public" implica que lo podemos cambiar desde Unity el valor 
     public float velocidad = 5f;
-
+    public float fuerzaSalto = 10f;
+    public AudioClip sonidoSalto;
+    [Range(0f, 1f)]
+    public float volumenSalto = 1f; // Control de volumen (0 a 1)
+    
     private Rigidbody2D rb;
-    private Vector2 direccion;
-
-    // Start is called before the first frame update
+    private AudioSource audioSource;
+    private bool enSuelo = false;
+    
     void Start()
     {
-        // Obtenemos el componente Rigidbody del propio objeto 
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal"); // Detecta flechas Izq/Der o A/D
-        float y = Input.GetAxisRaw("Vertical"); // Detecta flechas Arr/Abj o w/S
-
-        // Creamos el vector de dirección 
-        direccion = new Vector2(x, y);
-
-        // NORMALIZAR: Si nos movemos en diagonal, la longitud es de 1.41 (hipotenusa)
-        // .normalized recorta el vector a 1 para no correr más rápido en diagonal 
-        if (direccion.magnitude > 1)
+        float x = Input.GetAxisRaw("Horizontal");
+        
+        Vector2 movimiento = new Vector2(x * velocidad, rb.velocity.y);
+        rb.velocity = movimiento;
+        
+        if (Input.GetButtonDown("Jump") && enSuelo)
         {
-            direccion = direccion.normalized;
+            rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
+            
+            if (audioSource != null && sonidoSalto != null)
+            {
+                // Reproducir con el volumen deseado
+                audioSource.PlayOneShot(sonidoSalto, volumenSalto);
+            }
+            else
+            {
+                Debug.LogWarning("Falta AudioSource o AudioClip de salto en MovimientoJugador");
+            }
         }
     }
-
-    // FIXEUPDATE: Aquí aplicamos el movimiento físico 
-    void FixedUpdate()
+    
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // Calculamos cuánto movernos: Dirección * Velocidad * Tiempo 
-        Vector2 desplazamiento = direccion * velocidad * Time.fixedDeltaTime;
-
-        // Movemos el RigidBody a la nueva posición 
-        rb.MovePosition(rb.position + desplazamiento); 
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            enSuelo = true;
+        }
+    }
+    
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            enSuelo = false;
+        }
     }
 }

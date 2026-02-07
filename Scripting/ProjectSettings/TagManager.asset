@@ -8,6 +8,7 @@ TagManager:
   - Bloque
   - Jugador
   - Enemigo
+  - Suelo
   layers:
   - Default
   - TransparentFX

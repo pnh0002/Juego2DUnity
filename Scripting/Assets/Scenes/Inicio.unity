@@ -149,7 +149,7 @@ RectTransform:
   m_GameObject: {fileID: 223874266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.0035725, y: 2.6347127, z: 2.6347127}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1416287388}
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.34047556, b: 0, a: 1}
+  m_Color: {r: 0.0708081, g: 0.14668022, b: 0.735849, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Por as\xED decirlo\n"
+  m_Text: Super Fumon
 --- !u!222 &223874269
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -349,9 +349,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'yjrdjrdjyrjyr
-
-'
+  m_Text: Play
 --- !u!222 &481675163
 CanvasRenderer:
   m_ObjectHideFlags: 0
